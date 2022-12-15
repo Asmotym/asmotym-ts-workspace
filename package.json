@@ -1,0 +1,14 @@
+{
+  "name": "asmotym-js-workspace",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "pnpm -r --parallel run dev",
+    "dev:ui": "pnpm --filter ui run dev",
+    "dev:front": "pnpm --filter front run dev"
+  },
+  "keywords": [],
+  "author": "Clément BOUCHER <clement.boucherpro@gmail.com>",
+  "license": "ISC"
+}
