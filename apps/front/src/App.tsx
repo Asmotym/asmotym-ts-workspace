@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
-import { Organisms } from '@asmotym-js-workspace/ui'
+import { Organisms } from '@asmotym-ts-workspace/ui'
 
 function App() {
   const [count, setCount] = useState(0)

@@ -11,8 +11,8 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "@asmotym-js-workspace/utilities": "1.0.0",
-    "@asmotym-js-workspace/ui": "1.0.0"
+    "@asmotym-ts-workspace/utilities": "1.0.0",
+    "@asmotym-ts-workspace/ui": "1.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.26",
