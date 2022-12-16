@@ -1,5 +1,5 @@
 {
-  "name": "@asmotym-js-workspace/utilities",
+  "name": "@asmotym-ts-workspace/utilities",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.ts",
