@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import {
     Link
 } from 'react-router-dom'
-import { deepMerge } from 'basx'
+import { deepMerge } from '@asmotym-ts-workspace/utilities'
 
 export type HomeProps = {
     className?: string;
