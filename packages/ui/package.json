@@ -5,13 +5,14 @@
   "type": "module",
   "main": "src/index.ts",
   "scripts": {
-    "dev": "storybook dev -p 6006",
+    "dev": "storybook dev -p 6006 --ci",
     "build-storybook": "storybook build"
   },
   "dependencies": {
     "clsx": "^1.2.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "@asmotym-ts-workspace/utilities": "1.0.0"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.0.0-beta.8",

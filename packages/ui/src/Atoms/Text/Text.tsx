@@ -7,26 +7,10 @@ export type TextProps = {
     text: string;
 }
 
-export type TextState = {
-    $container?: React.RefObject<HTMLParagraphElement>;
-}
+export type TextState = {}
 
-export class Text extends React.Component<TextProps, TextState> {
-    constructor(props: TextProps) {
-        super(props);
+export type TextRefs = HTMLParagraphElement;
 
-        this.state = {
-            $container: React.createRef<HTMLParagraphElement>(),
-        }
-    }
-
-    render() {
-        return (
-            <p ref={this.state.$container}
-               className={clsx(this.props.className, Styles.Text)}
-            >
-                {this.props.text}
-            </p>
-        );
-    }
-}
+export const Text = React.forwardRef(function Text(props: TextProps, ref: React.ForwardedRef<TextRefs>) {
+    return <p ref={ref} className={clsx(props.className, Styles.Text)}>{props.text}</p>
+})

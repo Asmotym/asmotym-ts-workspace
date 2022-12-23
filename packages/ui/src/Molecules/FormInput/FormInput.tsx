@@ -9,44 +9,28 @@ export type FormInputProps = {
     input: Atoms.InputProps;
 }
 
-export type FormInputState = {
-    $container: React.RefObject<HTMLDivElement>;
-    $children: {
-        label: React.RefObject<Atoms.Text>;
-        input: React.RefObject<Atoms.Input>;
-    };
+export type FormInputState = {}
+
+export type FormInputRefs = {
+    input: React.RefObject<Atoms.InputRefs>;
+    text: React.RefObject<HTMLParagraphElement>;
+    isEmpty: () => boolean;
 }
 
-export class FormInput extends React.Component<FormInputProps, FormInputState> {
-    constructor(props: FormInputProps) {
-        super(props);
+export const FormInput = React.forwardRef(function FormInput(props: FormInputProps, ref: React.ForwardedRef<FormInputRefs>) {
+    const inputRef = React.useRef<Atoms.InputRefs>(null);
+    const textRef = React.useRef<HTMLParagraphElement>(null);
 
-        this.state = {
-            $container: React.createRef<HTMLDivElement>(),
-            $children: {
-                label: React.createRef<Atoms.Text>(),
-                input: React.createRef<Atoms.Input>(),
-            }
-        }
-    }
+    React.useImperativeHandle(ref, () => ({
+        input: inputRef,
+        text: textRef,
+        isEmpty: () => inputRef.current?.getValue() === '',
+    }))
 
-    isEmpty() {
-        const input: Atoms.Input | null = this.state.$children.input.current;
-
-        if (!input) {
-            return true;
-        }
-
-        return input.state.value === '';
-    }
-
-    render() {
-        return (
-            <div ref={this.state.$container}
-                 className={clsx(this.props.className, Styles.FormInput)}>
-                <Atoms.Text ref={this.state.$children.label} {...this.props.label} />
-                <Atoms.Input ref={this.state.$children.input} {...this.props.input} />
-            </div>
-        );
-    }
-}
+    return (
+        <div className={clsx(props.className, Styles.FormInput)}>
+            <Atoms.Text ref={textRef} {...props.label} />
+            <Atoms.Input ref={inputRef} {...props.input} />
+        </div>
+    )
+})

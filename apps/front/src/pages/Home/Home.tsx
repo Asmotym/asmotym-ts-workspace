@@ -5,34 +5,37 @@ import {
     Link
 } from 'react-router-dom'
 import { deepMerge } from '@asmotym-ts-workspace/utilities'
+import { AppContext } from '../../App'
 
 export type HomeProps = {
     className?: string;
 }
 
 export type HomeState = {
-    $container: React.RefObject<HTMLDivElement>;
     count: number;
 }
 
 export function Home(props: HomeProps): JSX.Element {
+    const appContext = React.useContext(AppContext)
+
+    // you have access to the global app context here
+    console.log('App context', appContext)
+
     const [state, setState] = useState<HomeState>({
-        $container: React.createRef<HTMLDivElement>(),
         count: 0,
     })
 
     function handleCount() {
         const updatedState: Object = { count: state.count + 1 }
         setState((currentState) => deepMerge(currentState, updatedState))
+        appContext.state._counter.increment();
+        console.log(appContext)
     }
 
     return (
-        <div
-            className={clsx('card', props.className, Styles.Home)}
-            ref={state.$container}
-        >
+        <div className={clsx('card', props.className, Styles.Home)}>
             <button onClick={handleCount}>
-                count is {state.count}
+                count is {appContext.state.count}
             </button>
             <br /><br />
 

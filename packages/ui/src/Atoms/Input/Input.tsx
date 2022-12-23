@@ -1,4 +1,4 @@
-import React, {ChangeEvent, HTMLInputTypeAttribute} from 'react'
+import React from 'react'
 import Styles from './Input.module.scss'
 import clsx from 'clsx'
 
@@ -6,40 +6,30 @@ export type InputProps = {
     className?: string;
     placeholder?: string;
     disabled?: boolean;
-    type?: HTMLInputTypeAttribute;
+    type?: React.HTMLInputTypeAttribute;
 }
 
-export type InputState = {
-    $container?: React.RefObject<HTMLInputElement>;
-    value: string;
+export type InputState = {}
+
+export type InputRefs = {
+    input: HTMLInputElement | null;
+    getValue: () => string;
 }
 
-export class Input extends React.Component<InputProps, InputState> {
-    constructor(props: InputProps) {
-        super(props);
+export const Input = React.forwardRef(function Input(props: InputProps, ref: React.ForwardedRef<InputRefs>) {
+    const inputRef = React.useRef<HTMLInputElement>(null)
 
-        this.state = {
-            $container: React.createRef<HTMLInputElement>(),
-            value: '',
-        }
-    }
+    React.useImperativeHandle(ref, () => ({
+        input: inputRef.current,
+        getValue: () => inputRef.current?.value || '',
+    }))
 
-    handleChange(event: ChangeEvent<HTMLInputElement>) {
-        this.setState((currentState: InputState) => {
-            currentState.value = event.target.value;
-            return currentState;
-        })
-    }
-
-    render() {
-        return (
-            <input ref={this.state.$container}
-                   type={this.props.type || 'text'}
-                   className={clsx(this.props.className, Styles.Input)}
-                   placeholder={this.props.placeholder}
-                   disabled={this.props.disabled}
-                   onChange={this.handleChange.bind(this)}
-            ></input>
-        );
-    }
-}
+    return (
+        <input ref={inputRef}
+               type={props.type || 'text'}
+               className={clsx(props.className, Styles.Input)}
+               placeholder={props.placeholder}
+               disabled={props.disabled}
+        ></input>
+    )
+})

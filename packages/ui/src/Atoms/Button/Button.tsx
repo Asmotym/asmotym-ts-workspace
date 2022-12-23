@@ -1,37 +1,26 @@
 import React from 'react'
 import Styles from './Button.module.scss'
 import clsx from 'clsx'
-import {SyntheticEvent} from "react";
 
 export type ButtonProps = {
     className?: string;
     text: string;
     disabled?: boolean;
-    onClick?: (event: SyntheticEvent) => void;
+    onClick?: (event: React.SyntheticEvent) => void;
 }
 
-export type ButtonState = {
-    $container?: React.RefObject<HTMLButtonElement>;
-}
+export type ButtonState = {}
 
-export class Button extends React.Component<ButtonProps, ButtonState> {
-    constructor(props: ButtonProps) {
-        super(props);
+export type ButtonRefs = HTMLButtonElement;
 
-        this.state = {
-            $container: React.createRef<HTMLButtonElement>(),
-        }
-    }
-
-    render() {
-        return (
-            <button ref={this.state.$container}
-                    className={clsx(this.props.className, Styles.Button)}
-                    disabled={this.props.disabled}
-                    onClick={this.props.onClick}
-            >
-                {this.props.text}
-            </button>
-        )
-    }
-}
+export const Button = React.forwardRef(function Button(props: ButtonProps, ref: React.ForwardedRef<ButtonRefs>): JSX.Element {
+    return (
+        <button ref={ref}
+                className={clsx(props.className, Styles.Button)}
+                disabled={props.disabled}
+                onClick={props.onClick}
+        >
+            {props.text}
+        </button>
+    )
+})

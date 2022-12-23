@@ -1,4 +1,4 @@
-import React, {SyntheticEvent} from 'react'
+import React, {useState} from 'react'
 import Styles from './Login.module.scss'
 import clsx from 'clsx'
 import {
@@ -12,38 +12,18 @@ export type LoginProps = {
     className?: string;
 }
 
-export type LoginState = {
-    $container: React.RefObject<HTMLDivElement>;
-    returnToHome: boolean;
-}
+export type LoginState = {}
 
-export class Login extends React.Component<LoginProps, LoginState> {
+export function Login(props: LoginProps) {
+    const [returnToHome, setReturnToHome] = useState(false)
 
-    constructor(props: LoginProps) {
-        super(props);
-
-        this.state = {
-            $container: React.createRef<HTMLDivElement>(),
-            returnToHome: false,
-        }
-    }
-
-    handleSubmit() {
-        this.setState({
-            returnToHome: true,
-        })
-    }
-
-    render() {
-        return (
-            <div ref={this.state.$container}
-                 className={clsx(this.props.className, Styles.Login)}
-            >
-                <Organisms.ConnectionForm onSubmit={this.handleSubmit.bind(this)} />
-                {this.state.returnToHome === true && (
-                    <Navigate to={'/'} />
-                )}
-            </div>
-        )
-    }
+    return (
+        <div className={clsx(props.className, Styles.Login)}
+        >
+            <Organisms.ConnectionForm onSubmit={() => setReturnToHome(true)} />
+            {returnToHome && (
+                <Navigate to={'/'} />
+            )}
+        </div>
+    )
 }
