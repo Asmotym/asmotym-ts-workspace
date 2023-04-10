@@ -13,7 +13,7 @@ const meta = {
     backgroundColor: { control: 'color' },
     onClick: { action: 'clicked' },
   },
-  args: { primary: false }, // default value
+  args: { primary: false, disabled: false }, // default value
 } satisfies Meta<typeof Button>;
 
 export default meta;
@@ -48,5 +48,12 @@ export const Small: Story = {
   args: {
     label: 'Button',
     size: 'small',
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    label: 'Button',
+    disabled: true,
   },
 };

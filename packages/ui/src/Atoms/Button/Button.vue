@@ -1,9 +1,16 @@
 <template>
-  <button type="button" :class="classes" @click="onClick" :style="style" :label="label">{{ label }} </button>
+  <button
+      type="button"
+      :class="classes"
+      :style="style"
+      :label="label"
+      :disabled="disabled"
+      @click="onClick"
+  >{{ label }} </button>
 </template>
 
 <script lang="ts" setup>
-import './button.css';
+import './Button.module.scss';
 import { computed } from 'vue';
 
 export type ButtonProps = {
@@ -23,14 +30,20 @@ export type ButtonProps = {
    * background color of the button
    */
   backgroundColor?: string,
-
+  /**
+   * disable button
+   */
+  disabled?: boolean,
 };
 
 export type ButtonEmits = {
   (e: 'click', id: number): void;
 };
 
-const props = withDefaults(defineProps<ButtonProps>(), { primary: false });
+const props = withDefaults(defineProps<ButtonProps>(), {
+  primary: false,
+  disabled: false,
+});
 
 const emit = defineEmits<ButtonEmits>();
 
