@@ -1,2 +1,9 @@
-export { ConnectionForm } from './ConnectionForm/ConnectionForm'
-export type { ConnectionFormProps, ConnectionFormState } from './ConnectionForm/ConnectionForm'
+// @ts-nocheck
+
+import LoginForm from "./LoginForm/LoginForm.vue";
+
+export type { LoginFormEmits, LoginFormProps, LoginFormExposedProps } from './LoginForm/LoginForm.vue'
+
+export {
+    LoginForm,
+}

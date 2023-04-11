@@ -1,4 +1,7 @@
-.Input {
-  padding: 5px;
-  margin-bottom: 5px;
+.asm-input {
+  padding: 2px;
+
+  &--large {
+    padding: 8px;
+  }
 }
