@@ -6,7 +6,7 @@
   "main": "src/index.ts",
   "scripts": {
     "dev": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build": "storybook build"
   },
   "dependencies": {
     "vue": "^3.2.47"
