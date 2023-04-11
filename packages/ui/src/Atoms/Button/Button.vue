@@ -40,6 +40,8 @@ export type ButtonEmits = {
   (e: 'click', id: number): void;
 };
 
+export type ButtonExposedProps = {};
+
 const props = withDefaults(defineProps<ButtonProps>(), {
   primary: false,
   disabled: false,
@@ -62,4 +64,5 @@ const onClick = () => {
   emit("click", 1)
 };
 
+defineExpose<ButtonExposedProps>({});
 </script>

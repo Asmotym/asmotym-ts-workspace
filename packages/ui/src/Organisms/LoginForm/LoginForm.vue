@@ -11,7 +11,7 @@
 
 <script lang="ts" setup>
 import './LoginForm.module.scss'
-import {computed, onMounted, ref} from "vue"
+import {computed, ref, Ref, UnwrapRef} from "vue"
 import * as Molecules from '../../Molecules'
 import * as Atoms from '../../Atoms'
 
@@ -26,8 +26,10 @@ export type LoginFormProps = {
 };
 
 export type LoginFormEmits = {
-  (name: 'submit', event: SubmitEvent): void;
+  (e: 'submit', event: { event: SubmitEvent, login: string, password: string }): void;
 };
+
+export type LoginFormExposedProps = {};
 
 const props = withDefaults(defineProps<LoginFormProps>(), {
   molecules: {
@@ -51,22 +53,17 @@ const classes = computed(() => ({
   'asm-login__form': true,
 }));
 
-const login = ref<Molecules.FormInput>(null);
-const password = ref<Molecules.FormInput>(null);
+const login: Ref<UnwrapRef<Molecules.FormInputExposedProps>> = ref(null);
+const password: Ref<UnwrapRef<Molecules.FormInputExposedProps>> = ref(null);
 
 const onSubmit = (event: SubmitEvent) => {
   event.preventDefault();
-  console.log({
-    login: login?.value,
-    password: password?.value,
+  emit('submit', {
+    event: event,
+    login: login.value?.input?.input.value,
+    password: password.value?.input?.input.value,
   });
-  emit('submit', event);
 };
 
-onMounted(() => {
-  console.log({
-    login,
-    password
-  })
-})
+defineExpose<LoginFormExposedProps>();
 </script>

@@ -1,5 +1,6 @@
 <template>
   <input
+      ref="input"
       type="text"
       :class="classes"
       :style="style"
@@ -12,7 +13,7 @@
 
 <script lang="ts" setup>
 import './Input.module.scss';
-import {computed, ref} from "vue";
+import {computed, ref, Ref, UnwrapRef} from "vue";
 
 export type InputProps = {
   /**
@@ -37,6 +38,10 @@ export type InputEmits = {
   (name: 'input', event: InputEvent): void;
 };
 
+export type InputExposedProps = {
+  input: Ref<UnwrapRef<HTMLInputElement | null>>;
+};
+
 const props = withDefaults(defineProps<InputProps>(), {
   size: 'default',
 });
@@ -50,13 +55,11 @@ const classes = computed(() => ({
 
 const style = computed(() => ({}));
 
-const input = ref<HTMLInputElement>();
-
-defineExpose({
-  input,
-})
-
 const onInput = (event: InputEvent) => {
   emit("input", event)
 }
+
+const input: Ref<UnwrapRef<HTMLInputElement | null>> = ref(null);
+
+defineExpose<InputExposedProps>({ input });
 </script>

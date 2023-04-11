@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Atoms } from "@asmotym-ts-workspace/ui"
+import { Atoms, Organisms, Molecules } from "@asmotym-ts-workspace/ui"
 
 defineProps<{ msg: string }>()
 
 const count = ref(0)
+
+const onSubmit = (detail: any) => console.log(detail);
 </script>
 
 <template>
@@ -19,6 +21,10 @@ const count = ref(0)
       Edit
       <code>components/HelloWorld.vue</code> to test HMR
     </p>
+  </div>
+
+  <div>
+    <Organisms.LoginForm @submit="onSubmit" />
   </div>
 
   <p>
