@@ -9,6 +9,8 @@ It also features an easy-to-use command line to run different project inside the
 
 We start from a simple `vite` application in each project running along with `Typescript` and `Vue 3`.
 
+We additionally use **Turborepo** in, when building to increase efficiency (see more [here](https://turbo.build)).
+
 ## Folders Structure
 
 This repository is made of two main folders:
@@ -63,3 +65,13 @@ pnpm run dev:front
 ````
 
 Check the main `package.json` and take a look at existing scripts to use.
+
+----
+
+When deploying, simply run this:
+
+````shell
+turbo deploy
+````
+
+This will run a pipeline of commands to build and lint the entire workspace.
