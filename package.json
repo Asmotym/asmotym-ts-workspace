@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "pnpm -r --parallel run dev",
     "dev:ui": "pnpm --filter ui run dev",
-    "dev:front": "pnpm --filter front run dev"
+    "dev:front": "pnpm --filter front run dev --host"
   },
   "keywords": [],
   "author": "Clément BOUCHER <clement.boucherpro@gmail.com>",

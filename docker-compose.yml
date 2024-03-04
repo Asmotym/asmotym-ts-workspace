@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  workspace:
+    container_name: asmotym-ts-workspace_base
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    image: asmotym-ts-workspace_base
+    volumes:
+      - .:/home/apps
+    ports:
+      - "${packages_ui_port}:6006"
+      - "${apps_front_port}:5173"
+    tty: true
+    restart: on-failure
+    network_mode: "bridge"

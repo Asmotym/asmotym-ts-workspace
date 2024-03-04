@@ -1,5 +1,11 @@
 node_modules
+
+# idea ide
 .idea
+
+# turbo package
 .turbo
 
+# pnpm related
+.pnpm-store
 pnpm-lock.yaml
