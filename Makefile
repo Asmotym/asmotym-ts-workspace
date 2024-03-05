@@ -10,3 +10,13 @@ install: ## Install everything
 
 clean: ## Clean pnpm store
 	rm -rf node_modules .pnpm-store pnpm-lock.yaml
+
+##@ Docker
+docker-build: ## Build the Docker image
+	@docker build --pull --rm -f "./docker/Dockerfile" -t asmotym-ts-workspace:latest "."
+
+docker-run: ## Run the Docker container
+	@docker compose -f "docker-compose.yml" up -d --build
+
+docker-enter: ## Enter the Docker container
+	@docker exec -it asmotym-ts-workspace_base bash
