@@ -9,7 +9,7 @@ install: ## Install everything
 	./docker/scripts/install.sh
 
 clean: ## Clean pnpm store
-	rm -rf node_modules .pnpm-store pnpm-lock.yaml
+	rm -rf node_modules .pnpm-store pnpm-lock.yaml apps/front/node_modules packages/ui/node_modules packages/utilities/node_modules
 
 ##@ Docker
 docker-build: ## Build the Docker image
@@ -20,3 +20,8 @@ docker-run: ## Run the Docker container
 
 docker-enter: ## Enter the Docker container
 	@docker exec -it asmotym-ts-workspace_base bash
+
+docker-setup: ## Build & Run the Docker container
+	make docker-build
+	make docker-run
+	make docker-enter
