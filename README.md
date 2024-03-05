@@ -63,6 +63,9 @@ make docker-build
 
 # Or directly using the Docker command
 docker build --pull --rm -f "./docker/Dockerfile" -t asmotym-ts-workspace:latest "."
+
+# Or running the bash script
+sh ./docker/scripts/setup/buildImage.sh
 ````
 
 You can then run the container:
@@ -73,6 +76,9 @@ make docker-run
 
 # Or directly using the Docker command
 docker compose -f "docker-compose.yml" up -d --build
+
+# Or running the bash script
+sh ./docker/scripts/setup/runContainer.sh
 ````
 
 And simply enter the container:
@@ -83,6 +89,9 @@ make docker-enter
 
 # Or directly using the Docker command
 docker exec -it asmotym-ts-workspace_base bash
+
+# Or running the bash script
+sh ./docker/scripts/enterContainer.sh
 ````
 
 Once inside the container, you can install all dependencies by running:
