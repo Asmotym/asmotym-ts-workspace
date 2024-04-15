@@ -6,22 +6,33 @@ help: ## Display this help.
 ##@ General
 install: ## Install everything
 	make clean
-	./docker/scripts/install.sh
+	@docker exec -it asmotym-ts-workspace_base bash -c "./docker/scripts/install.sh"
 
 clean: ## Clean pnpm store
-	rm -rf node_modules .pnpm-store pnpm-lock.yaml apps/front/node_modules packages/ui/node_modules packages/utilities/node_modules
+	@echo "Cleanup files & folders..."
+	@docker exec -it asmotym-ts-workspace_base bash -c "rm -rf node_modules .pnpm-store pnpm-lock.yaml apps/front/node_modules packages/ui/node_modules packages/utilities/node_modules"
+
+authorize: ## Authorize sh script execution in docker/scripts/ folder
+	chmod +x -R docker/scripts/*
 
 ##@ Docker
-docker-build: ## Build the Docker image
-	@docker build --pull --rm -f "./docker/Dockerfile" -t asmotym-ts-workspace:latest "."
+build: ## Build the Docker image
+	make authorize
+	@docker/scripts/setup/buildImage.sh
 
-docker-run: ## Run the Docker container
-	@docker compose -f "docker-compose.yml" up -d --build
+run: ## Run the Docker container
+	make authorize
+	@docker/scripts/setup/runContainer.sh
 
-docker-enter: ## Enter the Docker container
-	@docker exec -it asmotym-ts-workspace_base bash
+enter: ## Enter the Docker container
+	make authorize
+	@docker/scripts/enterContainer.sh
 
-docker-setup: ## Build & Run the Docker container
-	make docker-build
-	make docker-run
-	make docker-enter
+setup: ## Build & Run the Docker container
+	make authorize
+	make build
+	make run
+
+destroy: ## Destroy the Docker container
+	make clean
+	@docker/scripts/destroyContainer.sh

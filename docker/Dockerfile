@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:22.04
 
 LABEL maintainer="clement.boucherpro@gmail.com"
 
@@ -21,6 +21,5 @@ RUN apt-get update -y && \
 # Run ca-certificates to avoid errors while using curl
 RUN update-ca-certificates
 
-# Install required dependecies (nvm, pnpm, turbo repos, ...)
+# Install nvm (this helps us install node, npm, and pnpm)
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-RUN curl -fsSL https://get.pnpm.io/install.sh | bash

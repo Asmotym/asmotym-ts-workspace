@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 
-# install node
+# install node & npm
 source /root/.nvm/nvm.sh
 nvm install
-nvm use
 
-# required for turbo optimizations
+## install pnpm globally
+npm install -g pnpm
+
+# install turbo for build optimizations
 pnpm install turbo --global
 
-# install node + packages
+# install all packages
 pnpm install
