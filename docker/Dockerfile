@@ -8,6 +8,7 @@ curl \
 git \
 ca-certificates \
 build-essential \
+wget \
 "
 
 # Initialize workdir
@@ -22,4 +23,14 @@ RUN apt-get update -y && \
 RUN update-ca-certificates
 
 # Install nvm (this helps us install node, npm, and pnpm)
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+ENV NVM_DIR /root/.nvm
+RUN mkdir -p $NVM_DIR && curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash && . ~/.bashrc && nvm install --lts
+RUN . $NVM_DIR/nvm.sh && ln -s $NVM_DIR/$(nvm current) $NVM_DIR/cur && ln -s $NVM_DIR/versions/node/$(nvm current) $NVM_DIR/versions/node/cur
+ENV NODE_PATH $NVM_DIR/cur/lib/node_modules
+ENV PATH      $NVM_DIR/versions/node/cur/bin:$PATH
+
+# Install pnpm
+RUN npm install -g pnpm@latest-8
+
+# Install turborepo
+RUN npm install -g turbo@latest
